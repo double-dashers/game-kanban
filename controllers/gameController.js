@@ -6,7 +6,7 @@ module.exports = {
     res.json(result);
   },
   create: async function (req, res) {
-    const game = req.body;
+    const game = await db.game.create(req.body)
     const result = await db.user.findOneAndUpdate(
       { _id: req.params.id },
       { $push: { games: [game] } }
