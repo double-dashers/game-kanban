@@ -1,14 +1,13 @@
 import React from "react";
-import Navbar from "./Navbar";
+import Navmenu from "./Navmenu";
+import { Container } from "react-bootstrap";
 
 const Layout = (props) => {
   const { children } = props;
   return (
     <div>
-      <Navbar />
-      <div>
-        Container {children}
-      </div>
+      <Navmenu />
+      <Container fluid>{children}</Container>
     </div>
   );
 };
