@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
+import Home from "./views/Home";
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <Layout>
         <Switch>
           <Route path="/">
-            <div>Home route here</div>
+            <Home />
           </Route>
         </Switch>
       </Layout>
