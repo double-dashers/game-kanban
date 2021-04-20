@@ -6,7 +6,7 @@ import axios from "axios";
 const useStyles = createUseStyles({
   columns: {
     margin: "2vw",
-    height: "90vh",
+    display: "flex",
   },
   row: {
     display: "flex",
@@ -28,9 +28,8 @@ const Games = () => {
         name
       )}`
     );
-
-    setGames(response.data.results);
     setLoading(false);
+    setGames(response.data.results);
   };
   const handleSearch = () => {
     setLoading(true);
@@ -38,21 +37,28 @@ const Games = () => {
   };
 
   let section;
-  if (games.length === 0) {
-    section = <div>Search for games</div>;
-  } else if (loading) {
-    section = <div>Loading...</div>;
-  } else {
+  if (!loading && games.length === 0) {
+    section = <Row className={classes.row}>Search for games</Row>;
+  } else if (games.length > 0) {
     section = (
-      <div>
+      <Row className={classes.row}>
         {games.map((game, index) => {
           return (
             <Col key={index} className={classes.columns} lg={3} xs={12}>
               <Card>
-                <Card.Img variant="top" src={game.background_image} />
-                <Card.Body>
+                <Card.Img style={{height: '20vh'}} variant="top" src={game.background_image} />
+                <Card.Body style={{overflow: 'auto', maxHeight: '35vh'}}>
                   <Card.Title>{game.name}</Card.Title>
                   <Card.Text>
+                    This is a wider card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                    This is a wider card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                    This is a wider card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
                     This is a wider card with supporting text below as a natural
                     lead-in to additional content. This content is a little bit
                     longer.
@@ -63,8 +69,10 @@ const Games = () => {
             </Col>
           );
         })}
-      </div>
+      </Row>
     );
+  } else {
+    section = <div>Loading...</div>;
   }
 
   return (
@@ -79,7 +87,7 @@ const Games = () => {
           <button onClick={handleSearch}>Search</button>
         </Col>
       </Row>
-      <Row className={classes.row}>{section}</Row>
+      {section}
     </>
   );
 };
