@@ -1,16 +1,19 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./views/Home";
+import Games from "./views/Games";
 
 function App() {
   return (
     <div>
       <Layout>
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <Home />
+          </Route>
+          <Route path="/games">
+            <Games />
           </Route>
         </Switch>
       </Layout>

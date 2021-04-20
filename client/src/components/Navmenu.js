@@ -1,4 +1,3 @@
-import React from "react";
 import { Navbar, Button, Nav } from "react-bootstrap";
 
 const Navmenu = () => {
@@ -7,6 +6,9 @@ const Navmenu = () => {
       <Navbar.Brand>Game-Kanban</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link>Home</Nav.Link>
+      </Nav>
+      <Nav className="mr-auto">
+        <Nav.Link>Games</Nav.Link>
       </Nav>
       <Button variant="outline-info">User</Button>
     </Navbar>
