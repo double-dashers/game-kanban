@@ -11,16 +11,16 @@ const useStyles = createUseStyles({
   row: {
     display: "flex",
     justifyContent: "center",
-    width: "100%",
     paddingTop: "2vh",
+    border: "solid red",
   },
 });
 
 const Games = () => {
   const classes = useStyles();
-  const [games, setGames] = useState();
+  const [games, setGames] = useState([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getGames = async (name) => {
     const response = await axios.get(
@@ -34,17 +34,17 @@ const Games = () => {
   };
   const handleSearch = () => {
     setLoading(true);
-    setTimeout(10000, getGames(search));
+    getGames(search);
   };
 
   let section;
-  if (!games) {
+  if (games.length === 0) {
     section = <div>Search for games</div>;
   } else if (loading) {
     section = <div>Loading...</div>;
   } else {
     section = (
-      <Row className={classes.row} lg={3} xs={12}>
+      <div>
         {games.map((game, index) => {
           return (
             <Col key={index} className={classes.columns} lg={3} xs={12}>
@@ -63,14 +63,14 @@ const Games = () => {
             </Col>
           );
         })}
-      </Row>
+      </div>
     );
   }
 
   return (
     <>
-      <Row lg={3} xs={12}>
-        <Col lg={3} xs={12}>
+      <Row className={classes.row}>
+        <Col className={classes.columns} lg={3} xs={12}>
           <input
             type="text"
             value={search}
@@ -79,7 +79,7 @@ const Games = () => {
           <button onClick={handleSearch}>Search</button>
         </Col>
       </Row>
-      {section}
+      <Row className={classes.row}>{section}</Row>
     </>
   );
 };
