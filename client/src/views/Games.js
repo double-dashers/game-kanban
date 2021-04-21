@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import { createUseStyles } from "react-jss";
-import axios from "axios";
+import API from '../util/API'
 
 const useStyles = createUseStyles({
   columns: {
@@ -23,11 +23,7 @@ const Games = () => {
   const [loading, setLoading] = useState(false);
 
   const getGames = async (name) => {
-    const response = await axios.get(
-      `https://api.rawg.io/api/games?key=4b0b80a25416456b93cb6339ad40fefc&search=${encodeURI(
-        name
-      )}`
-    );
+    const response = await API.findByName(name);
     setLoading(false);
     setGames(response.data.results);
   };
