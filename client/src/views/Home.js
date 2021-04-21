@@ -12,7 +12,6 @@ const useStyles = createUseStyles({
   row: {
     display: "flex",
     justifyContent: "center",
-    width: "100%",
     paddingTop: "2vh",
   },
 });

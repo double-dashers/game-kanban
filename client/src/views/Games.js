@@ -6,21 +6,21 @@ import axios from "axios";
 const useStyles = createUseStyles({
   columns: {
     margin: "2vw",
-    height: "90vh",
+    display: "flex",
   },
   row: {
     display: "flex",
     justifyContent: "center",
-    width: "100%",
     paddingTop: "2vh",
+    border: "solid red",
   },
 });
 
 const Games = () => {
   const classes = useStyles();
-  const [games, setGames] = useState();
+  const [games, setGames] = useState([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getGames = async (name) => {
     const response = await axios.get(
@@ -28,31 +28,37 @@ const Games = () => {
         name
       )}`
     );
-
-    setGames(response.data.results);
     setLoading(false);
+    setGames(response.data.results);
   };
   const handleSearch = () => {
     setLoading(true);
-    setTimeout(10000, getGames(search));
+    getGames(search);
   };
 
   let section;
-  if (!games) {
-    section = <div>Search for games</div>;
-  } else if (loading) {
-    section = <div>Loading...</div>;
-  } else {
+  if (!loading && games.length === 0) {
+    section = <Row className={classes.row}>Search for games</Row>;
+  } else if (games.length > 0) {
     section = (
-      <Row className={classes.row} lg={3} xs={12}>
+      <Row className={classes.row}>
         {games.map((game, index) => {
           return (
             <Col key={index} className={classes.columns} lg={3} xs={12}>
               <Card>
-                <Card.Img variant="top" src={game.background_image} />
-                <Card.Body>
+                <Card.Img style={{height: '20vh'}} variant="top" src={game.background_image} />
+                <Card.Body style={{overflow: 'auto', maxHeight: '35vh'}}>
                   <Card.Title>{game.name}</Card.Title>
                   <Card.Text>
+                    This is a wider card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                    This is a wider card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                    This is a wider card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
                     This is a wider card with supporting text below as a natural
                     lead-in to additional content. This content is a little bit
                     longer.
@@ -65,12 +71,14 @@ const Games = () => {
         })}
       </Row>
     );
+  } else {
+    section = <div>Loading...</div>;
   }
 
   return (
     <>
-      <Row lg={3} xs={12}>
-        <Col lg={3} xs={12}>
+      <Row className={classes.row}>
+        <Col className={classes.columns} lg={3} xs={12}>
           <input
             type="text"
             value={search}
