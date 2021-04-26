@@ -9,11 +9,14 @@ function App() {
     <div>
       <Layout>
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
           <Route path="/games">
             <Games />
+          </Route>
+          <Route exact path="/home">
+            <Home />
+          </Route>
+          <Route exact path="/">
+            <Home />
           </Route>
         </Switch>
       </Layout>

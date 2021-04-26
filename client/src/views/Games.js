@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { createUseStyles } from "react-jss";
-import API from '../util/API'
+import GameCard from "../components/GameCard";
+import API from "../util/API";
 
 const useStyles = createUseStyles({
   columns: {
@@ -41,27 +42,7 @@ const Games = () => {
         {games.map((game, index) => {
           return (
             <Col key={index} className={classes.columns} lg={3} xs={12}>
-              <Card>
-                <Card.Img style={{height: '20vh'}} variant="top" src={game.background_image} />
-                <Card.Body style={{overflow: 'auto', maxHeight: '35vh'}}>
-                  <Card.Title>{game.name}</Card.Title>
-                  <Card.Text>
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
-                  </Card.Text>
-                </Card.Body>
-                <Card.Footer></Card.Footer>
-              </Card>
+              <GameCard image={game.background_image} title={game.name} />
             </Col>
           );
         })}
